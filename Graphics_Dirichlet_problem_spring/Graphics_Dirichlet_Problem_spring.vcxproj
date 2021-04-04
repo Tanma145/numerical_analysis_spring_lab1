@@ -24,7 +24,7 @@
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>Graph</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Graphics_Dirichlet_problem_spring</ProjectName>
+    <ProjectName>Graphics_Dirichlet_Problem_main</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -150,13 +150,13 @@
     <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graphics_spring.h">
+    <ClInclude Include="Graphics_main.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Graphics_spring.resx">
-      <DependentUpon>Graphics_spring.h</DependentUpon>
+    <EmbeddedResource Include="Graphics_main.resx">
+      <DependentUpon>Graphics_main.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

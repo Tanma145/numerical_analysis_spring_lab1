@@ -17,7 +17,7 @@ int main(){
 	int n = 3, m = 3;
 	cout << "n = " << n << ", m = " << m << endl;
 	Dirichlet_Problem_Square square(0, 2.0, 0, 1.0);
-	Dirichlet_Problem_Solution answer(n, m, square);
+	Dirichlet_Problem_Solution_Test answer(n, m, square);
 	cout.precision(3);
 	//cout << answer.matrix << endl << endl;
 

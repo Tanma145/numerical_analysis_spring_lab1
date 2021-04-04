@@ -117,7 +117,7 @@ namespace Graph {
 			this->textBox_precision->Name = L"textBox_precision";
 			this->textBox_precision->Size = System::Drawing::Size(100, 20);
 			this->textBox_precision->TabIndex = 0;
-			this->textBox_precision->Text = L"1e-8";
+			this->textBox_precision->Text = L"0,5e-6";
 			// 
 			// textBox_max_iterations
 			// 
@@ -297,9 +297,11 @@ namespace Graph {
 			// label11
 			// 
 			this->label11->AutoSize = true;
-			this->label11->Location = System::Drawing::Point(76, 16);
+			this->label11->Font = (gcnew System::Drawing::Font(L"Consolas", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label11->Location = System::Drawing::Point(12, 14);
 			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(128, 39);
+			this->label11->Size = System::Drawing::Size(175, 39);
 			this->label11->TabIndex = 21;
 			this->label11->Text = L"u(x, y) = exp(1 - x^2 - y^2)\r\n-1 <= x <= 1\r\n-1 <= y <= 1";
 			// 
@@ -351,15 +353,17 @@ namespace Graph {
 		double precision = Convert::ToDouble(textBox_precision->Text);
 		double error_max = 0;
 
-		Dirichlet_Problem_Square problem(-1, 1, -1, 1);
+		Dirichlet_Problem_Square_Test problem(-1, 1, -1, 1);
+		/*
 		problem.set_exact(test_exact);
 		problem.set_laplacian(test_laplacian);
 		problem.set_x_min_edge(test_x_min_edge);
 		problem.set_x_max_edge(test_x_max_edge);
 		problem.set_y_min_edge(test_y_min_edge);
 		problem.set_y_max_edge(test_y_max_edge);
+		*/
 		
-		Dirichlet_Problem_Solution answer(n, m, problem);
+		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Test> answer(n, m, problem);
 		answer.setIterations(max_iterations);
 		answer.setPrecision(precision);
 		answer.exact_solution();

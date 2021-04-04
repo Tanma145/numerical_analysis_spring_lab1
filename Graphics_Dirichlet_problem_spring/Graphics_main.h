@@ -68,6 +68,8 @@ namespace Graph {
 
 
 	private: System::Windows::Forms::Label^ label11;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::Label^ label5;
 
 
 
@@ -102,8 +104,11 @@ namespace Graph {
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->label5 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_numerical))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_error))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// textBox_precision
@@ -112,7 +117,7 @@ namespace Graph {
 			this->textBox_precision->Name = L"textBox_precision";
 			this->textBox_precision->Size = System::Drawing::Size(100, 20);
 			this->textBox_precision->TabIndex = 0;
-			this->textBox_precision->Text = L"1e-8";
+			this->textBox_precision->Text = L"0,5e-6";
 			// 
 			// textBox_max_iterations
 			// 
@@ -177,7 +182,7 @@ namespace Graph {
 			// dataGridView_numerical
 			// 
 			this->dataGridView_numerical->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView_numerical->Location = System::Drawing::Point(269, 32);
+			this->dataGridView_numerical->Location = System::Drawing::Point(287, 29);
 			this->dataGridView_numerical->Name = L"dataGridView_numerical";
 			this->dataGridView_numerical->Size = System::Drawing::Size(452, 473);
 			this->dataGridView_numerical->TabIndex = 9;
@@ -185,7 +190,7 @@ namespace Graph {
 			// dataGridView_error
 			// 
 			this->dataGridView_error->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView_error->Location = System::Drawing::Point(727, 32);
+			this->dataGridView_error->Location = System::Drawing::Point(745, 29);
 			this->dataGridView_error->Name = L"dataGridView_error";
 			this->dataGridView_error->Size = System::Drawing::Size(452, 473);
 			this->dataGridView_error->TabIndex = 10;
@@ -205,7 +210,7 @@ namespace Graph {
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label6->Location = System::Drawing::Point(265, 9);
+			this->label6->Location = System::Drawing::Point(283, 6);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(164, 20);
 			this->label6->TabIndex = 13;
@@ -216,11 +221,11 @@ namespace Graph {
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label7->Location = System::Drawing::Point(723, 9);
+			this->label7->Location = System::Drawing::Point(741, 6);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(338, 20);
+			this->label7->Size = System::Drawing::Size(399, 20);
 			this->label7->TabIndex = 14;
-			this->label7->Text = L"Разность истинного и численного решения";
+			this->label7->Text = L"Численное решение, полученное на двойной сетке";
 			// 
 			// textBox_precision_cur
 			// 
@@ -257,17 +262,41 @@ namespace Graph {
 			// label11
 			// 
 			this->label11->AutoSize = true;
-			this->label11->Location = System::Drawing::Point(76, 16);
+			this->label11->Font = (gcnew System::Drawing::Font(L"Consolas", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label11->Location = System::Drawing::Point(12, 15);
 			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(128, 39);
+			this->label11->Size = System::Drawing::Size(265, 65);
 			this->label11->TabIndex = 21;
-			this->label11->Text = L"u(x, y) = exp(1 - x^2 - y^2)\r\n-1 <= x <= 1\r\n-1 <= y <= 1";
+			this->label11->Text = L"f(x, y) = |x^2 - y2|\r\nmu_1(y) = -y^2 +1 mu_2(y) = (1 - y^2)exp(y)\r\nmu_3(x) = 1 - "
+				L"x^2 mu_4(x) = 1 - x^2\r\n-1 <= x <= 1\r\n-1 <= y <= 1";
+			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Location = System::Drawing::Point(1203, 29);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->Size = System::Drawing::Size(452, 473);
+			this->dataGridView1->TabIndex = 22;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label5->Location = System::Drawing::Point(1199, 6);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(236, 20);
+			this->label5->TabIndex = 23;
+			this->label5->Text = L"Разность численных решений";
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1655, 525);
+			this->ClientSize = System::Drawing::Size(1672, 525);
+			this->Controls->Add(this->label5);
+			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->label11);
 			this->Controls->Add(this->label9);
 			this->Controls->Add(this->label8);
@@ -290,6 +319,7 @@ namespace Graph {
 			this->Text = L"MyForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_numerical))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_error))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

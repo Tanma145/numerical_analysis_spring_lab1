@@ -142,6 +142,8 @@
   <ItemGroup>
     <ClInclude Include="Dirichlet_Problem_Solution.h" />
     <ClInclude Include="Dirichlet_Problem_Square.h" />
+    <ClInclude Include="Dirichlet_Problem_Square_Main.h" />
+    <ClInclude Include="Dirichlet_Problem_Square_Test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
