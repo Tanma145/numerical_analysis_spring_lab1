@@ -1,5 +1,6 @@
 #pragma once
 #include "Dirichlet_Problem_Square_Test.h"
+#include "Dirichlet_Problem_Square_Main.h"
 #include <Eigen/Dense>
 #include <iostream>
 
@@ -29,6 +30,7 @@ public:
 	void setIterations(int);
 
 	void exact_solution();
+	void initial_approximation();
 	void Zeidel();
 	void SOR(double); //метод верхней реллаксации
 };
@@ -91,6 +93,11 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::exact_solution()
 		}
 }
 
+template<class Dirichlet_Problem_Square_Type>
+inline void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::initial_approximation(){
+
+}
+
 template <class Dirichlet_Problem_Square_Type>
 void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Zeidel() {
 	MatrixXd laplacian_grid(y_grid + 1, x_grid + 1);
@@ -150,7 +157,7 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Zeidel() {
 
 template<class Dirichlet_Problem_Square_Type>
 inline void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::SOR(double omega){
-	MatrixXd laplacian_grid(x_grid + 1, y_grid + 1);
+	MatrixXd laplacian_grid(y_grid + 1, x_grid + 1);
 	MatrixXd solution(matrix);
 
 	for (int i = 0; i < laplacian_grid.rows(); i++)
@@ -177,10 +184,10 @@ inline void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::SOR(doubl
 	while (flag) {
 		eps_max = 0;
 		for (int j = 1; j < solution.cols() - 1; j++)
-			for (int i = 1; i < solution.cols() - 1; i++) {
+			for (int i = 1; i < solution.rows() - 1; i++) {
 				v_old = solution(i, j);
 				v_new = - omega * (h2 * (solution(i + 1, j) + solution(i - 1, j)) + k2 * (solution(i, j + 1) + solution(i, j - 1)));
-				v_new += + (1 - omega) * a2 * solution(i, j) + omega * laplacian_grid(i, j);
+				v_new += (1 - omega) * a2 * solution(i, j) + omega * laplacian_grid(i, j);
 				v_new /= a2;
 				eps_cur = abs(v_old - v_new);
 				if (eps_cur > eps_max)

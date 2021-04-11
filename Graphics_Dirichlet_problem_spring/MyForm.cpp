@@ -1,4 +1,4 @@
-#include "Graphics_spring.h"
+#include "Graphics_main.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
