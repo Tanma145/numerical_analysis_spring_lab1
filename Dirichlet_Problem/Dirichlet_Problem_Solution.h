@@ -13,7 +13,7 @@ private:
 	double precision;
 	int iterations_max;
 public:
-	double residual;
+	double residual; //Невязка
 	double precision_cur;
 	int iterations_cur;
 	Dirichlet_Problem_Square_Type problem;
@@ -30,6 +30,7 @@ public:
 
 	void exact_solution();
 	void Zeidel();
+	void SOR(double); //метод верхней реллаксации
 };
 
 template <class Dirichlet_Problem_Square_Type>
@@ -53,8 +54,10 @@ Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Dirichlet_Problem_Sol
 {
 	Dirichlet_Problem_Square_Type a(_problem);
 	problem = a;
+
 	x_grid = _x_grid;
 	y_grid = _y_grid;
+
 	matrix.resize(y_grid + 1, x_grid + 1);
 	matrix2.resize(y_grid + 1, x_grid + 1);
 	x_step = (problem.x_max - problem.x_min) / (double)x_grid;
@@ -90,11 +93,13 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::exact_solution()
 
 template <class Dirichlet_Problem_Square_Type>
 void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Zeidel() {
-	MatrixXd laplacian_grid(x_grid + 1, y_grid + 1);
+	MatrixXd laplacian_grid(y_grid + 1, x_grid + 1);
 	MatrixXd solution(matrix);
+
 	for (int i = 0; i < laplacian_grid.rows(); i++)
 		for (int j = 0; j < laplacian_grid.cols(); j++)
 			laplacian_grid(i, j) = problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
+
 	for (int i = 1; i < solution.rows() - 1; i++)
 		for (int j = 1; j < solution.cols() - 1; j++)
 			solution(i, j) = 0;
@@ -111,15 +116,15 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Zeidel() {
 	h2 = 1 / (x_step * x_step);
 	k2 = 1 / (y_step * y_step);
 	a2 = -2 * (h2 + k2);
+
 	while (f) {
 		eps_max = 0;
 		for (int j = 1; j <= solution.cols() - 2; j++)
 			for (int i = solution.rows() - 2; i >=1; i--) {
 				v_old = solution(i, j);
-				v_new = -(k2 * (solution(i + 1, j) + solution(i - 1, j)) + h2 * (solution(i, j + 1) + solution(i, j - 1)));
+				v_new = -(h2 * (solution(i + 1, j) + solution(i - 1, j)) + k2 * (solution(i, j + 1) + solution(i, j - 1)));
 				v_new = v_new + laplacian_grid(i, j);
 				v_new = v_new / a2;
-
 
 				eps_cur = abs(v_old - v_new);
 				if (eps_cur > eps_max)
@@ -141,82 +146,55 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Zeidel() {
 	error(2) = ( 36 * solution(1, 1) - 90 * solution(1, 2) +  9 * solution(2, 2)) / 4.0 + 155 / 16.0;
 	error(3) = ( 36 * solution(2, 1) +  9 * solution(1, 2) - 90 * solution(2, 2)) / 4.0 + 155 / 16.0;
 	residual = error.norm();
+}
 
-	//что это там дальше?
-	/*
-	int m = y_grid - 1;
-	int n = x_grid - 1;
-	MatrixXd F((y_grid - 1), (x_grid - 1));
+template<class Dirichlet_Problem_Square_Type>
+inline void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::SOR(double omega){
+	MatrixXd laplacian_grid(x_grid + 1, y_grid + 1);
+	MatrixXd solution(matrix);
 
-	for (int j = 1; j < m; j++)
-		for (int i = 1; i < n; i++) {
-			double x_i, y_i, sum = 0;
-			x_i = problem.x_min + i * x_step;
-			y_i = problem.y_min + j * y_step;
+	for (int i = 0; i < laplacian_grid.rows(); i++)
+		for (int j = 0; j < laplacian_grid.cols(); j++)
+			laplacian_grid(i, j) = problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
 
-			if (j == 1)
-				sum += k2 * problem.y_min_edge(x_i);
-			else
-				if (j == m - 1)
-					sum += k2 * problem.y_max_edge(x_i);
-			if (i == 1)
-				sum += h2 * problem.x_min_edge(y_i);
-			else
-				if (i == n - 1)
-					sum += h2 * problem.x_max_edge(y_i);
-			F(i, j) = -laplacian_grid(i, j) - sum - 8;
-		}
+	for (int i = 1; i < solution.rows() - 1; i++)
+		for (int j = 1; j < solution.cols() - 1; j++)
+			solution(i, j) = 0;
 
-	double rs = 0;
-	for (int j = 1; j < m; j++)
-	{
-		for (int i = 1; i < n; i++)
-		{
-			double r;
-			double mult;
+	int iterations = 0; // счетчик итераций 
+	double eps_max = 0; // текущее значение прироста 
+	double eps_cur = 0; // для подсчета текущего значения прироста 
+	double a2, k2, h2; // ненулевые элементы матрицы (-A) 
 
-			if (j != 1 && j != m - 1)
-			{
-				if (i != 1 && i != n - 1)
-					mult = k2 * solution(i, j -1) + h2 * solution(i - 1, j) + a2 * solution(i, j) + h2 * solution(i + 1, j) + k2 * solution(i, j + 1);
-				else
-					if (i == 1)
-						mult = k2 * solution(i, j -1) + a2 * solution(i, j) + h2 * solution(i + 1, j) + k2 * solution(i, j + 1);
-					else
-						if (i == n - 1)
-							mult = k2 * solution(i, j -1) + h2 * solution(i - 1, j) + a2 * solution(i, j) + k2 * solution(i, j + 1);
+	double v_old; // старое значение преобразуемой компоненты вектора v 
+	double v_new; // новое значение преобразуемой компоненты вектора v 
+	bool flag = true; // условие остановки 
+
+	h2 = 1 / (x_step * x_step);
+	k2 = 1 / (y_step * y_step);
+	a2 = -2 * (h2 + k2);
+
+	while (flag) {
+		eps_max = 0;
+		for (int j = 1; j < solution.cols() - 1; j++)
+			for (int i = 1; i < solution.cols() - 1; i++) {
+				v_old = solution(i, j);
+				v_new = - omega * (h2 * (solution(i + 1, j) + solution(i - 1, j)) + k2 * (solution(i, j + 1) + solution(i, j - 1)));
+				v_new += + (1 - omega) * a2 * solution(i, j) + omega * laplacian_grid(i, j);
+				v_new /= a2;
+				eps_cur = abs(v_old - v_new);
+				if (eps_cur > eps_max)
+					eps_max = eps_cur;
+				solution(i, j) = v_new;
 			}
-			else
-				if (j == 1)
-				{
-					if (i == 1)
-						mult = a2 * solution(i, j) + h2 * solution(i + 1, j) + k2 * solution(i, j + 1);
-					else
-						if (i != n - 1)
-							mult = h2 * solution(i - 1, j) + a2 * solution(i, j) + h2 * solution(i + 1, j) + k2 * solution(i, j + 1);
-						else
-							if (i == n - 1)
-								mult = h2 * solution(i - 1, j) + a2 * solution(i, j) + k2 * solution(i, j + 1);
-				}
-				else
-					if (j == m - 1)
-					{
-						if (i == 1)
-							mult = k2 * solution(i, j -1) + a2 * solution(i, j) + h2 * solution(i + 1, j);
-						else
-							if (i != n - 1)
-								mult = k2 * solution(i, j -1) + h2 * solution(i - 1, j) + a2 * solution(i, j) + h2 * solution(i + 1, j);
-							else
-								if (i == n - 1)
-									mult = k2 * solution(i, j -1) + h2 * solution(i - 1, j) + a2 * solution(i, j);
-					}
-
-			r = abs(mult - F(i, j));
-			rs += r * r;
+		iterations++;
+		if (eps_max < precision || iterations >= iterations_max){
+			precision_cur = eps_max;
+			flag = false;
 		}
 	}
-	residual = sqrt(rs);
-	*/
+	iterations_cur = iterations;
+	matrix = solution;
 }
 
 

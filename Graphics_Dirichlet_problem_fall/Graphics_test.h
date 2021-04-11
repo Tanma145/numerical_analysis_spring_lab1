@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iomanip>
 #include "../Dirichlet_Problem/Dirichlet_Problem_Solution.h"
+#define PI 3.141592653589793
 
 namespace Graph {
 
@@ -68,6 +69,13 @@ namespace Graph {
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::TextBox^ textBox_error_max;
 	private: System::Windows::Forms::Label^ label11;
+	private: System::Windows::Forms::ComboBox^ comboBox_method;
+	private: System::Windows::Forms::TextBox^ textBox_optimal_SOR;
+
+
+	private: System::Windows::Forms::Label^ label12;
+	private: System::Windows::Forms::Button^ button1;
+
 
 
 
@@ -106,6 +114,10 @@ namespace Graph {
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->textBox_error_max = (gcnew System::Windows::Forms::TextBox());
 			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->comboBox_method = (gcnew System::Windows::Forms::ComboBox());
+			this->textBox_optimal_SOR = (gcnew System::Windows::Forms::TextBox());
+			this->label12 = (gcnew System::Windows::Forms::Label());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_exact))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_numerical))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_error))->BeginInit();
@@ -125,7 +137,7 @@ namespace Graph {
 			this->textBox_max_iterations->Name = L"textBox_max_iterations";
 			this->textBox_max_iterations->Size = System::Drawing::Size(100, 20);
 			this->textBox_max_iterations->TabIndex = 1;
-			this->textBox_max_iterations->Text = L"200";
+			this->textBox_max_iterations->Text = L"500";
 			// 
 			// label1
 			// 
@@ -168,7 +180,7 @@ namespace Graph {
 			this->textBox_x_grid->Name = L"textBox_x_grid";
 			this->textBox_x_grid->Size = System::Drawing::Size(100, 20);
 			this->textBox_x_grid->TabIndex = 4;
-			this->textBox_x_grid->Text = L"20";
+			this->textBox_x_grid->Text = L"25";
 			// 
 			// label3
 			// 
@@ -205,9 +217,9 @@ namespace Graph {
 			// 
 			// button_solve
 			// 
-			this->button_solve->Location = System::Drawing::Point(174, 223);
+			this->button_solve->Location = System::Drawing::Point(163, 223);
 			this->button_solve->Name = L"button_solve";
-			this->button_solve->Size = System::Drawing::Size(75, 23);
+			this->button_solve->Size = System::Drawing::Size(100, 23);
 			this->button_solve->TabIndex = 11;
 			this->button_solve->Text = L"Решить";
 			this->button_solve->UseVisualStyleBackColor = true;
@@ -248,22 +260,24 @@ namespace Graph {
 			// 
 			// textBox_precision_cur
 			// 
-			this->textBox_precision_cur->Location = System::Drawing::Point(138, 298);
+			this->textBox_precision_cur->Location = System::Drawing::Point(138, 407);
 			this->textBox_precision_cur->Name = L"textBox_precision_cur";
+			this->textBox_precision_cur->ReadOnly = true;
 			this->textBox_precision_cur->Size = System::Drawing::Size(125, 20);
 			this->textBox_precision_cur->TabIndex = 15;
 			// 
 			// textBox_iterations_cur
 			// 
-			this->textBox_iterations_cur->Location = System::Drawing::Point(163, 333);
+			this->textBox_iterations_cur->Location = System::Drawing::Point(163, 439);
 			this->textBox_iterations_cur->Name = L"textBox_iterations_cur";
+			this->textBox_iterations_cur->ReadOnly = true;
 			this->textBox_iterations_cur->Size = System::Drawing::Size(100, 20);
 			this->textBox_iterations_cur->TabIndex = 16;
 			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(12, 301);
+			this->label8->Location = System::Drawing::Point(12, 410);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(120, 13);
 			this->label8->TabIndex = 17;
@@ -272,7 +286,7 @@ namespace Graph {
 			// label9
 			// 
 			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(12, 330);
+			this->label9->Location = System::Drawing::Point(12, 439);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(133, 26);
 			this->label9->TabIndex = 18;
@@ -281,7 +295,7 @@ namespace Graph {
 			// label10
 			// 
 			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(12, 370);
+			this->label10->Location = System::Drawing::Point(12, 479);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(146, 26);
 			this->label10->TabIndex = 20;
@@ -289,8 +303,9 @@ namespace Graph {
 			// 
 			// textBox_error_max
 			// 
-			this->textBox_error_max->Location = System::Drawing::Point(163, 370);
+			this->textBox_error_max->Location = System::Drawing::Point(163, 479);
 			this->textBox_error_max->Name = L"textBox_error_max";
+			this->textBox_error_max->ReadOnly = true;
 			this->textBox_error_max->Size = System::Drawing::Size(100, 20);
 			this->textBox_error_max->TabIndex = 19;
 			// 
@@ -305,11 +320,52 @@ namespace Graph {
 			this->label11->TabIndex = 21;
 			this->label11->Text = L"u(x, y) = exp(1 - x^2 - y^2)\r\n-1 <= x <= 1\r\n-1 <= y <= 1";
 			// 
+			// comboBox_method
+			// 
+			this->comboBox_method->FormattingEnabled = true;
+			this->comboBox_method->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Метод Зейделя", L"Метод верхней релакцсации" });
+			this->comboBox_method->Location = System::Drawing::Point(12, 252);
+			this->comboBox_method->Name = L"comboBox_method";
+			this->comboBox_method->Size = System::Drawing::Size(251, 21);
+			this->comboBox_method->TabIndex = 22;
+			this->comboBox_method->Text = L"Выбрать метод решения";
+			// 
+			// textBox_optimal_SOR
+			// 
+			this->textBox_optimal_SOR->Location = System::Drawing::Point(163, 279);
+			this->textBox_optimal_SOR->Name = L"textBox_optimal_SOR";
+			this->textBox_optimal_SOR->Size = System::Drawing::Size(100, 20);
+			this->textBox_optimal_SOR->TabIndex = 23;
+			this->textBox_optimal_SOR->Text = L"1";
+			// 
+			// label12
+			// 
+			this->label12->AutoSize = true;
+			this->label12->Location = System::Drawing::Point(73, 282);
+			this->label12->Name = L"label12";
+			this->label12->Size = System::Drawing::Size(84, 13);
+			this->label12->TabIndex = 24;
+			this->label12->Text = L"Параметр МВР";
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(163, 305);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(100, 37);
+			this->button1->TabIndex = 25;
+			this->button1->Text = L"Оптимальный параметр МВР";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1655, 525);
+			this->Controls->Add(this->button1);
+			this->Controls->Add(this->label12);
+			this->Controls->Add(this->textBox_optimal_SOR);
+			this->Controls->Add(this->comboBox_method);
 			this->Controls->Add(this->label11);
 			this->Controls->Add(this->label10);
 			this->Controls->Add(this->textBox_error_max);
@@ -347,27 +403,35 @@ namespace Graph {
 		dataGridView_exact->Columns->Clear();
 		dataGridView_numerical->Columns->Clear();
 		dataGridView_error->Columns->Clear();
-		int n = Convert::ToInt32(textBox_x_grid->Text);
-		int m = Convert::ToInt32(textBox_y_grid->Text);
-		int max_iterations = Convert::ToInt32(textBox_max_iterations->Text);
-		double precision = Convert::ToDouble(textBox_precision->Text);
+
 		double error_max = 0;
 
+		//услолия задачи
 		Dirichlet_Problem_Square_Test problem(-1, 1, -1, 1);
-		/*
-		problem.set_exact(test_exact);
-		problem.set_laplacian(test_laplacian);
-		problem.set_x_min_edge(test_x_min_edge);
-		problem.set_x_max_edge(test_x_max_edge);
-		problem.set_y_min_edge(test_y_min_edge);
-		problem.set_y_max_edge(test_y_max_edge);
-		*/
-		
-		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Test> answer(n, m, problem);
+
+		//параметры метода
+		int n = Convert::ToInt32(textBox_x_grid->Text);
+		int m = Convert::ToInt32(textBox_y_grid->Text);
+		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Test> answer(m, n, problem);
+
+		int max_iterations = Convert::ToInt32(textBox_max_iterations->Text);
+		double precision = Convert::ToDouble(textBox_precision->Text);
 		answer.setIterations(max_iterations);
 		answer.setPrecision(precision);
 		answer.exact_solution();
-		answer.Zeidel();
+
+		//параметр для МВР
+		double omega = Convert::ToDouble(textBox_optimal_SOR->Text);
+		//выбор метода
+		int selectedIndex = comboBox_method->SelectedIndex;
+		switch (selectedIndex) {
+		case 0:
+			answer.Zeidel();
+			break;
+		case 1:
+			answer.SOR(omega);
+			break;
+		}
 
 		for (int i = 0; i < answer.matrix.cols(); i++) {
 			char* col_name = "Column";
@@ -392,6 +456,15 @@ namespace Graph {
 		textBox_precision_cur->Text = Convert::ToString(answer.precision_cur);
 		textBox_iterations_cur->Text = Convert::ToString(answer.iterations_cur);
 		textBox_error_max->Text = Convert::ToString(error_max);
+	}
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		int n = Convert::ToInt32(textBox_x_grid->Text);
+		int m = Convert::ToInt32(textBox_y_grid->Text);
+		double h = 2 / (double)n;
+		double k = 2 / (double)m;
+		double lambda = 2 * k * k / (h * h + k * k) * pow(sin(PI * h / 4), 2) + 2 * h * h / (h * h + k * k) * pow(sin(PI * k / 4), 2);
+		double omega = 2 / (1 + sqrt(lambda * (2 - lambda)));
+		textBox_optimal_SOR->Text = Convert::ToString(omega);
 	}
 };
 }

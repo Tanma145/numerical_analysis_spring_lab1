@@ -14,7 +14,7 @@ public:
 	Dirichlet_Problem_Square(double, double, double, double);
     
     virtual double exact(double x, double y) = 0; //истинное решение есть только у тестовой задачи и было бы хорошо оставить этот метод только в соответствующем классе, 
-                                                //но так как он зачем-то используется в Dirichlet_Problem_Solution приходится оставлять его здесь
+                                                  //но так как он зачем-то используется в Dirichlet_Problem_Solution приходится оставлять его здесь
     virtual double laplacian(double x, double y) = 0;
     virtual double x_min_edge(double y) = 0;
     virtual double x_max_edge(double y) = 0;
