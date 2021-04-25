@@ -79,6 +79,9 @@ namespace Graph {
 
 
 
+
+
+
 	private: System::ComponentModel::IContainer^  components;
 	private:
 		/// <summary>
@@ -137,7 +140,7 @@ namespace Graph {
 			this->textBox_max_iterations->Name = L"textBox_max_iterations";
 			this->textBox_max_iterations->Size = System::Drawing::Size(100, 20);
 			this->textBox_max_iterations->TabIndex = 1;
-			this->textBox_max_iterations->Text = L"500";
+			this->textBox_max_iterations->Text = L"1000";
 			// 
 			// label1
 			// 
@@ -180,7 +183,7 @@ namespace Graph {
 			this->textBox_x_grid->Name = L"textBox_x_grid";
 			this->textBox_x_grid->Size = System::Drawing::Size(100, 20);
 			this->textBox_x_grid->TabIndex = 4;
-			this->textBox_x_grid->Text = L"25";
+			this->textBox_x_grid->Text = L"20";
 			// 
 			// label3
 			// 
@@ -323,7 +326,10 @@ namespace Graph {
 			// comboBox_method
 			// 
 			this->comboBox_method->FormattingEnabled = true;
-			this->comboBox_method->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Метод Зейделя", L"Метод верхней релакцсации" });
+			this->comboBox_method->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
+				L"Метод Зейделя", L"Метод верхней релакцсации",
+					L"Метод простой итерации", L"Метод с чебышёвским набором параметров", L"Метод с чебышёвским набором параметров2"
+			});
 			this->comboBox_method->Location = System::Drawing::Point(12, 252);
 			this->comboBox_method->Name = L"comboBox_method";
 			this->comboBox_method->Size = System::Drawing::Size(251, 21);
@@ -341,11 +347,11 @@ namespace Graph {
 			// label12
 			// 
 			this->label12->AutoSize = true;
-			this->label12->Location = System::Drawing::Point(73, 282);
+			this->label12->Location = System::Drawing::Point(60, 282);
 			this->label12->Name = L"label12";
-			this->label12->Size = System::Drawing::Size(84, 13);
+			this->label12->Size = System::Drawing::Size(98, 13);
 			this->label12->TabIndex = 24;
-			this->label12->Text = L"Параметр МВР";
+			this->label12->Text = L"Параметр метода";
 			// 
 			// button1
 			// 
@@ -430,6 +436,15 @@ namespace Graph {
 			break;
 		case 1:
 			answer.SOR(omega);
+			break;
+		case 2:
+			answer.Fixed_Point_Iteration();
+			break;
+		case 3:
+			answer.Chebyshev_Iteration_Method();
+			break;
+		case 4:
+			answer.Chebyshev_Iteration_Method((int)omega);
 			break;
 		}
 
