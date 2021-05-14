@@ -446,8 +446,8 @@ namespace Graph {
 			answer_double.Fixed_Point_Iteration();
 			break;
 		case 3:
-			answer.Chebyshev_Iteration_Method();
-			answer_double.Chebyshev_Iteration_Method();
+			answer.Chebyshev_Iteration_Method((int)omega);
+			answer_double.Chebyshev_Iteration_Method((int)omega);
 			break;
 		}
 

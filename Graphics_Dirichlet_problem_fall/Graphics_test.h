@@ -326,9 +326,9 @@ namespace Graph {
 			// comboBox_method
 			// 
 			this->comboBox_method->FormattingEnabled = true;
-			this->comboBox_method->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
+			this->comboBox_method->Items->AddRange(gcnew cli::array< System::Object^  >(4) {
 				L"Метод Зейделя", L"Метод верхней релакцсации",
-					L"Метод простой итерации", L"Метод с чебышёвским набором параметров", L"Метод с чебышёвским набором параметров2"
+					L"Метод простой итерации", L"Метод с чебышёвским набором параметров"
 			});
 			this->comboBox_method->Location = System::Drawing::Point(12, 252);
 			this->comboBox_method->Name = L"comboBox_method";
@@ -441,9 +441,6 @@ namespace Graph {
 			answer.Fixed_Point_Iteration();
 			break;
 		case 3:
-			answer.Chebyshev_Iteration_Method();
-			break;
-		case 4:
 			answer.Chebyshev_Iteration_Method((int)omega);
 			break;
 		}
