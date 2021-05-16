@@ -27,6 +27,12 @@
     <ClInclude Include="Dirichlet_Problem_Square_Main.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Dirichlet_Problem_Non_Standard.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Dirichlet_Problem_Solution_Non_Standard.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">

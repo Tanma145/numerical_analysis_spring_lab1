@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dirichlet_Problem", "Dirichlet_Problem\Dirichlet_Problem.vcxproj", "{C26A7205-E4D4-4DD0-98E4-A54382525F49}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics_Dirichlet_Problem_fall", "Graphics_Dirichlet_problem_fall\Graph.vcxproj", "{9696B190-8A31-45BA-A43E-0287102EF438}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics_Dirichlet_Problem_test", "Graphics_Dirichlet_problem_fall\Graph.vcxproj", "{9696B190-8A31-45BA-A43E-0287102EF438}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics_Dirichlet_problem_spring", "Graphics_Dirichlet_problem_spring\Graphics_Dirichlet_Problem_spring.vcxproj", "{AAB49370-F388-4128-A0C6-887EA31DF2FA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics_Dirichlet_Problem_main", "Graphics_Dirichlet_problem_spring\Graphics_Dirichlet_Problem_spring.vcxproj", "{AAB49370-F388-4128-A0C6-887EA31DF2FA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics_Dirichlet_Problem_non_standard", "Graphics_Dirichlet_problem_non_standard\Graph_non_standard.vcxproj", "{50FC777F-5B8E-4ED9-944F-70EAF6053438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{AAB49370-F388-4128-A0C6-887EA31DF2FA}.Release|x64.Build.0 = Release|x64
 		{AAB49370-F388-4128-A0C6-887EA31DF2FA}.Release|x86.ActiveCfg = Release|Win32
 		{AAB49370-F388-4128-A0C6-887EA31DF2FA}.Release|x86.Build.0 = Release|Win32
+		{50FC777F-5B8E-4ED9-944F-70EAF6053438}.Debug|x64.ActiveCfg = Debug|x64
+		{50FC777F-5B8E-4ED9-944F-70EAF6053438}.Debug|x64.Build.0 = Debug|x64
+		{50FC777F-5B8E-4ED9-944F-70EAF6053438}.Debug|x86.ActiveCfg = Debug|Win32
+		{50FC777F-5B8E-4ED9-944F-70EAF6053438}.Debug|x86.Build.0 = Debug|Win32
+		{50FC777F-5B8E-4ED9-944F-70EAF6053438}.Release|x64.ActiveCfg = Release|x64
+		{50FC777F-5B8E-4ED9-944F-70EAF6053438}.Release|x64.Build.0 = Release|x64
+		{50FC777F-5B8E-4ED9-944F-70EAF6053438}.Release|x86.ActiveCfg = Release|Win32
+		{50FC777F-5B8E-4ED9-944F-70EAF6053438}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

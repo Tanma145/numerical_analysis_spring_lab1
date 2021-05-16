@@ -214,7 +214,7 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Fixed_Point_Iter
 	MatrixXd solution_prev(matrix);
 	for (int i = 0; i < laplacian_grid.rows(); i++)
 		for (int j = 0; j < laplacian_grid.cols(); j++)
-			laplacian_grid(i, j) = -problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
+			laplacian_grid(i, j) = - problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
 	for (int i = 1; i < solution.rows() - 1; i++)
 		for (int j = 1; j < solution.cols() - 1; j++)
 			solution(i, j) = 0;  //нужно поменять начальное приближение
@@ -326,7 +326,8 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Chebyshev_Iterat
 	}
 
 	while (f) {
-		eps_max = 0;
+		//if (iterations % k == 0)
+			eps_max = 0;
 		solution_prev = solution;
 
 		for (int j = 1; j <= solution.cols() - 2; j++)
@@ -339,9 +340,12 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Chebyshev_Iterat
 				v_new = solution_prev(i, j) - tau(iterations % k) * (b_ij - tmp);
 
 				//вычисление "точности"
-				eps_cur = abs(k_solution(i, j) - v_new);
-				if (eps_cur > eps_max)
-					eps_max = eps_cur;
+				//if (iterations % k == 0) 
+				{
+					eps_cur = abs(k_solution(i, j) - v_new);
+					if (eps_cur > eps_max)
+						eps_max = eps_cur;
+				}
 
 				solution(i, j) = v_new;
 			}
