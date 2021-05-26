@@ -140,6 +140,16 @@ inline void Dirichlet_Problem_Solution_Non_Standard::SOR(double omega) {
 	}
 	iterations_cur = iterations;
 	matrix = solution;
+
+	//невязка
+	double res, res_max = 0;
+	for (int j = 1; j <= solution.cols() - 2; j++)
+		for (int i = solution.rows() - 2; i >= 1; i--) {
+			res = abs(a2 * solution(i, j) + h2 * (solution(i + 1, j) + solution(i - 1, j)) + k2 * (solution(i, j + 1) + solution(i, j - 1)) - laplacian_grid(i, j));
+			if (res > res_max)
+				res_max = res;
+		}
+	residual = res;
 }
 
 void Dirichlet_Problem_Solution_Non_Standard::Fixed_Point_Iteration() {
@@ -207,6 +217,16 @@ void Dirichlet_Problem_Solution_Non_Standard::Fixed_Point_Iteration() {
 	}
 	iterations_cur = iterations;
 	matrix = solution;
+
+	//невязка
+	double res, res_max = 0;
+	for (int j = 1; j <= solution.cols() - 2; j++)
+		for (int i = solution.rows() - 2; i >= 1; i--) {
+			res = abs(a2 * solution(i, j) + h2 * (solution(i + 1, j) + solution(i - 1, j)) + k2 * (solution(i, j + 1) + solution(i, j - 1)) - laplacian_grid(i, j));
+			if (res > res_max)
+				res_max = res;
+		}
+	residual = res;
 }
 
 void Dirichlet_Problem_Solution_Non_Standard::Chebyshev_Iteration_Method(int k) {
@@ -296,5 +316,15 @@ void Dirichlet_Problem_Solution_Non_Standard::Chebyshev_Iteration_Method(int k) 
 	//std::cout << matrix2 << std::endl << std::endl;
 	iterations_cur = iterations;
 	matrix = k_solution;
+
+	//невязка
+	double res, res_max = 0;
+	for (int j = 1; j <= solution.cols() - 2; j++)
+		for (int i = solution.rows() - 2; i >= 1; i--) {
+			res = abs(a2 * solution(i, j) + h2 * (solution(i + 1, j) + solution(i - 1, j)) + k2 * (solution(i, j + 1) + solution(i, j - 1)) - laplacian_grid(i, j));
+			if (res > res_max)
+				res_max = res;
+		}
+	residual = res;
 }
 

@@ -79,6 +79,7 @@ namespace Graph {
 	private: System::Windows::Forms::ComboBox^ comboBox_method;
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::TextBox^ textBox_error_max;
+	private: System::Windows::Forms::TextBox^ textBox_iterations_cur2;
 
 
 
@@ -121,6 +122,7 @@ namespace Graph {
 			this->comboBox_method = (gcnew System::Windows::Forms::ComboBox());
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->textBox_error_max = (gcnew System::Windows::Forms::TextBox());
+			this->textBox_iterations_cur2 = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_numerical))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_double))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_error))->BeginInit();
@@ -128,7 +130,7 @@ namespace Graph {
 			// 
 			// textBox_precision
 			// 
-			this->textBox_precision->Location = System::Drawing::Point(163, 98);
+			this->textBox_precision->Location = System::Drawing::Point(181, 98);
 			this->textBox_precision->Name = L"textBox_precision";
 			this->textBox_precision->Size = System::Drawing::Size(100, 20);
 			this->textBox_precision->TabIndex = 0;
@@ -136,7 +138,7 @@ namespace Graph {
 			// 
 			// textBox_max_iterations
 			// 
-			this->textBox_max_iterations->Location = System::Drawing::Point(163, 133);
+			this->textBox_max_iterations->Location = System::Drawing::Point(181, 133);
 			this->textBox_max_iterations->Name = L"textBox_max_iterations";
 			this->textBox_max_iterations->Size = System::Drawing::Size(100, 20);
 			this->textBox_max_iterations->TabIndex = 1;
@@ -163,7 +165,7 @@ namespace Graph {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(36, 174);
+			this->label4->Location = System::Drawing::Point(11, 174);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(121, 13);
 			this->label4->TabIndex = 6;
@@ -171,7 +173,7 @@ namespace Graph {
 			// 
 			// textBox_y_grid
 			// 
-			this->textBox_y_grid->Location = System::Drawing::Point(163, 197);
+			this->textBox_y_grid->Location = System::Drawing::Point(181, 197);
 			this->textBox_y_grid->Name = L"textBox_y_grid";
 			this->textBox_y_grid->Size = System::Drawing::Size(100, 20);
 			this->textBox_y_grid->TabIndex = 5;
@@ -179,7 +181,7 @@ namespace Graph {
 			// 
 			// textBox_x_grid
 			// 
-			this->textBox_x_grid->Location = System::Drawing::Point(163, 171);
+			this->textBox_x_grid->Location = System::Drawing::Point(181, 171);
 			this->textBox_x_grid->Name = L"textBox_x_grid";
 			this->textBox_x_grid->Size = System::Drawing::Size(100, 20);
 			this->textBox_x_grid->TabIndex = 4;
@@ -188,7 +190,7 @@ namespace Graph {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(36, 200);
+			this->label3->Location = System::Drawing::Point(12, 200);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(121, 13);
 			this->label3->TabIndex = 7;
@@ -196,6 +198,7 @@ namespace Graph {
 			// 
 			// dataGridView_numerical
 			// 
+			this->dataGridView_numerical->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->dataGridView_numerical->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView_numerical->Location = System::Drawing::Point(287, 29);
 			this->dataGridView_numerical->Name = L"dataGridView_numerical";
@@ -204,6 +207,7 @@ namespace Graph {
 			// 
 			// dataGridView_double
 			// 
+			this->dataGridView_double->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->dataGridView_double->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView_double->Location = System::Drawing::Point(745, 29);
 			this->dataGridView_double->Name = L"dataGridView_double";
@@ -212,7 +216,7 @@ namespace Graph {
 			// 
 			// button_solve
 			// 
-			this->button_solve->Location = System::Drawing::Point(174, 223);
+			this->button_solve->Location = System::Drawing::Point(192, 223);
 			this->button_solve->Name = L"button_solve";
 			this->button_solve->Size = System::Drawing::Size(75, 23);
 			this->button_solve->TabIndex = 11;
@@ -222,6 +226,7 @@ namespace Graph {
 			// 
 			// label6
 			// 
+			this->label6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -233,6 +238,7 @@ namespace Graph {
 			// 
 			// label7
 			// 
+			this->label7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -244,7 +250,7 @@ namespace Graph {
 			// 
 			// textBox_precision_cur
 			// 
-			this->textBox_precision_cur->Location = System::Drawing::Point(138, 397);
+			this->textBox_precision_cur->Location = System::Drawing::Point(156, 380);
 			this->textBox_precision_cur->Name = L"textBox_precision_cur";
 			this->textBox_precision_cur->ReadOnly = true;
 			this->textBox_precision_cur->Size = System::Drawing::Size(125, 20);
@@ -252,7 +258,7 @@ namespace Graph {
 			// 
 			// textBox_iterations_cur
 			// 
-			this->textBox_iterations_cur->Location = System::Drawing::Point(163, 426);
+			this->textBox_iterations_cur->Location = System::Drawing::Point(181, 406);
 			this->textBox_iterations_cur->Name = L"textBox_iterations_cur";
 			this->textBox_iterations_cur->ReadOnly = true;
 			this->textBox_iterations_cur->Size = System::Drawing::Size(100, 20);
@@ -261,7 +267,7 @@ namespace Graph {
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(12, 397);
+			this->label8->Location = System::Drawing::Point(12, 383);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(120, 13);
 			this->label8->TabIndex = 17;
@@ -270,7 +276,7 @@ namespace Graph {
 			// label9
 			// 
 			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(12, 426);
+			this->label9->Location = System::Drawing::Point(12, 409);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(133, 26);
 			this->label9->TabIndex = 18;
@@ -290,6 +296,7 @@ namespace Graph {
 			// 
 			// dataGridView_error
 			// 
+			this->dataGridView_error->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->dataGridView_error->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView_error->Location = System::Drawing::Point(1203, 29);
 			this->dataGridView_error->Name = L"dataGridView_error";
@@ -298,6 +305,7 @@ namespace Graph {
 			// 
 			// label5
 			// 
+			this->label5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -309,7 +317,7 @@ namespace Graph {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(163, 305);
+			this->button1->Location = System::Drawing::Point(181, 305);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(100, 37);
 			this->button1->TabIndex = 29;
@@ -320,15 +328,15 @@ namespace Graph {
 			// label12
 			// 
 			this->label12->AutoSize = true;
-			this->label12->Location = System::Drawing::Point(73, 282);
+			this->label12->Location = System::Drawing::Point(12, 282);
 			this->label12->Name = L"label12";
-			this->label12->Size = System::Drawing::Size(84, 13);
+			this->label12->Size = System::Drawing::Size(98, 13);
 			this->label12->TabIndex = 28;
-			this->label12->Text = L"Параметр МВР";
+			this->label12->Text = L"Параметр метода";
 			// 
 			// textBox_optimal_SOR
 			// 
-			this->textBox_optimal_SOR->Location = System::Drawing::Point(163, 279);
+			this->textBox_optimal_SOR->Location = System::Drawing::Point(181, 279);
 			this->textBox_optimal_SOR->Name = L"textBox_optimal_SOR";
 			this->textBox_optimal_SOR->Size = System::Drawing::Size(100, 20);
 			this->textBox_optimal_SOR->TabIndex = 27;
@@ -343,14 +351,14 @@ namespace Graph {
 			});
 			this->comboBox_method->Location = System::Drawing::Point(12, 252);
 			this->comboBox_method->Name = L"comboBox_method";
-			this->comboBox_method->Size = System::Drawing::Size(251, 21);
+			this->comboBox_method->Size = System::Drawing::Size(269, 21);
 			this->comboBox_method->TabIndex = 26;
 			this->comboBox_method->Text = L"Выбрать метод решения";
 			// 
 			// label10
 			// 
 			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(12, 463);
+			this->label10->Location = System::Drawing::Point(12, 476);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(129, 26);
 			this->label10->TabIndex = 31;
@@ -358,17 +366,26 @@ namespace Graph {
 			// 
 			// textBox_error_max
 			// 
-			this->textBox_error_max->Location = System::Drawing::Point(163, 463);
+			this->textBox_error_max->Location = System::Drawing::Point(181, 482);
 			this->textBox_error_max->Name = L"textBox_error_max";
 			this->textBox_error_max->ReadOnly = true;
 			this->textBox_error_max->Size = System::Drawing::Size(100, 20);
 			this->textBox_error_max->TabIndex = 30;
+			// 
+			// textBox_iterations_cur2
+			// 
+			this->textBox_iterations_cur2->Location = System::Drawing::Point(181, 432);
+			this->textBox_iterations_cur2->Name = L"textBox_iterations_cur2";
+			this->textBox_iterations_cur2->ReadOnly = true;
+			this->textBox_iterations_cur2->Size = System::Drawing::Size(100, 20);
+			this->textBox_iterations_cur2->TabIndex = 32;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1672, 525);
+			this->Controls->Add(this->textBox_iterations_cur2);
 			this->Controls->Add(this->label10);
 			this->Controls->Add(this->textBox_error_max);
 			this->Controls->Add(this->button1);
@@ -428,7 +445,7 @@ namespace Graph {
 		answer_double.setIterations(max_iterations);
 		answer_double.setPrecision(precision);
 
-		//параметр для МВР
+		//параметр метода
 		double omega = Convert::ToDouble(textBox_optimal_SOR->Text);
 		//выбор метода
 		int selectedIndex = comboBox_method->SelectedIndex;
@@ -451,7 +468,7 @@ namespace Graph {
 			break;
 		}
 
-		//ЧТО ЗА ДИЧЬ Я ЗДЕСЬ НАПИСАЛ?
+		//подготовка таблиц для решений
 		for (int i = 0; i < answer.matrix.cols(); i++) {
 			char* col_name = "Column";
 			col_name += i;
@@ -460,6 +477,7 @@ namespace Graph {
 			dataGridView_error->Columns->Add(Convert::ToString(col_name), Convert::ToString(i));
 		}
 
+		//запись решений в таблицы
 		for (int i = 0; i < answer.matrix.rows(); i++) {
 			dataGridView_numerical->Rows->Add();
 			dataGridView_double->Rows->Add();
@@ -473,8 +491,11 @@ namespace Graph {
 				dataGridView_error->Rows[i]->Cells[j]->Value = error;
 			}
 		}
+
+		//данные решения
 		textBox_precision_cur->Text = Convert::ToString(answer.precision_cur);
 		textBox_iterations_cur->Text = Convert::ToString(answer.iterations_cur);
+		textBox_iterations_cur2->Text = Convert::ToString(answer_double.iterations_cur);
 		textBox_error_max->Text = Convert::ToString(error_max);
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
