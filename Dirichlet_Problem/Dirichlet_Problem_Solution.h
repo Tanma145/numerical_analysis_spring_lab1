@@ -140,8 +140,8 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Zeidel() {
 	double v_new; // новое значение преобразуемой компоненты вектора v 
 	bool f = true; // условие остановки 
 
-	h2 = 1 / (x_step * x_step);
-	k2 = 1 / (y_step * y_step);
+	h2 = x_grid * x_grid / 4.0;
+	k2 = y_grid * y_grid / 4.0;
 	a2 = -2 * (h2 + k2);
 
 	while (f) {
@@ -191,8 +191,8 @@ inline void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::SOR(doubl
 	double v_new; // новое значение преобразуемой компоненты вектора v 
 	bool flag = true; // условие остановки 
 
-	h2 = 1 / (x_step * x_step);
-	k2 = 1 / (y_step * y_step);
+	h2 = x_grid * x_grid / 4.0;
+	k2 = y_grid * y_grid / 4.0;
 	a2 = -2 * (h2 + k2);
 
 	while (flag) {
@@ -221,11 +221,11 @@ inline void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::SOR(doubl
 	double res, res_max = 0;
 	for (int i = 1; i < matrix.rows() - 1; i++)
 		for (int j = 1; j < matrix.cols() - 1; j++) {
-			double a = laplacian_grid(i, j);
+			double f = laplacian_grid(i, j);
 			double b = a2 * solution(i, j);
 			double bh = h2 * (solution(i + 1, j) + solution(i - 1, j));
 			double bk = k2 * (solution(i, j + 1) + solution(i, j - 1));
-			res = abs(b + bh + bk - a);
+			res = abs(b + bh + bk - f);
 			if (res > res_max)
 				res_max = res;
 		}
@@ -246,8 +246,8 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Fixed_Point_Iter
 	double v_new; // новое значение преобразуемой компоненты вектора v 
 	bool f = true; // условие остановки 
 
-	h2 = 1 / (x_step * x_step);
-	k2 = 1 / (y_step * y_step);
+	h2 = x_grid * x_grid / 4.0;
+	k2 = y_grid * y_grid / 4.0;
 	a2 = - 2 * (h2 + k2);
 
 	double eig_val_min = (4.0 / (x_step * x_step))
@@ -319,8 +319,8 @@ void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Chebyshev_Iterat
 	double v_new; // новое значение преобразуемой компоненты вектора v 
 	bool f = true; // условие остановки 
 
-	h2 = 1 / (x_step * x_step);
-	k2 = 1 / (y_step * y_step);
+	h2 = x_grid * x_grid / 4.0;
+	k2 = y_grid * y_grid / 4.0;
 	a2 = - 2 * (h2 + k2);
 
 	double eig_val_min = (4.0 / (x_step * x_step))

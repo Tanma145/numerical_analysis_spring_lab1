@@ -153,7 +153,7 @@ namespace Graph {
 			this->textBox_max_iterations->Name = L"textBox_max_iterations";
 			this->textBox_max_iterations->Size = System::Drawing::Size(125, 20);
 			this->textBox_max_iterations->TabIndex = 1;
-			this->textBox_max_iterations->Text = L"1000";
+			this->textBox_max_iterations->Text = L"10000";
 			// 
 			// label1
 			// 
@@ -511,7 +511,6 @@ namespace Graph {
 
 		}
 #pragma endregion
-		private:
 	private: System::Void button_solve_Click(System::Object^ sender, System::EventArgs^ e) {
 		dataGridView_exact->Columns->Clear();
 		dataGridView_numerical->Columns->Clear();
@@ -568,6 +567,7 @@ namespace Graph {
 			answer.Zeidel();
 			break;
 		}
+		
 		// Подготовка таблиц
 		for (int i = 0; i < answer.matrix.cols(); i++) {
 			char* col_name = "Column";
@@ -577,16 +577,20 @@ namespace Graph {
 			dataGridView_numerical->Columns->Add(Convert::ToString(col_name), Convert::ToString(xx));
 			dataGridView_error->Columns->Add(    Convert::ToString(col_name), Convert::ToString(xx));
 		}
-
+		
 		// Заполнение таблиц
 		double x_of_max, y_of_max;
 		for (int i = 0; i < answer.matrix.rows(); i++) {
+			
 			dataGridView_exact->Rows->Add();
 			dataGridView_numerical->Rows->Add();
 			dataGridView_error->Rows->Add();
+			
 			for (int j = 0; j < answer.matrix.cols(); j++) {
+				
 				dataGridView_exact->Rows[i]->Cells[j]->Value = answer.matrix2(i, j);
 				dataGridView_numerical->Rows[i]->Cells[j]->Value = answer.matrix(i, j);
+				
 				double error = abs(answer.matrix2(i, j) - answer.matrix(i, j));
 				if (error > error_max) {
 					error_max = error;
@@ -604,6 +608,7 @@ namespace Graph {
 		textBox_error_max->Text = Convert::ToString(error_max);
 		x_of_max = round((x_of_max) * 1e6) / 1e6;
 		y_of_max = round((y_of_max) * 1e6) / 1e6;
+		textBox_max_point->Text = "";
 		textBox_max_point->Text += "(";
 		textBox_max_point->Text += x_of_max;
 		textBox_max_point->Text += "; ";
@@ -613,9 +618,7 @@ namespace Graph {
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		int n = Convert::ToInt32(textBox_x_grid->Text);
 		int m = Convert::ToInt32(textBox_y_grid->Text);
-		double h = 2 / (double)n;
-		double k = 2 / (double)m;
-		double lambda = 2 * k * k / (h * h + k * k) * pow(sin(PI * h / 4), 2) + 2 * h * h / (h * h + k * k) * pow(sin(PI * k / 4), 2);
+		double lambda = 2 * n * n / (double) (n * n + m * m) * pow(sin(0.5 * PI / n), 2) + 2 * m * m / (double) (n * n + m * m) * pow(sin(0.5 * PI / m), 2);
 		double omega = 2 / (1 + sqrt(lambda * (2 - lambda)));
 		textBox_optimal_SOR->Text = Convert::ToString(omega);
 	}
