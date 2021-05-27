@@ -12,32 +12,34 @@ template <class Dirichlet_Problem_Square_Type>
 class Dirichlet_Problem_Solution
 {
 private:
-	double precision;
-	int iterations_max;
+	double precision; //точность
+	int iterations_max; //максимальное количество итераций
 public:
-	double residual; //Невязка
-	double precision_cur;
-	int iterations_cur;
-	Dirichlet_Problem_Square_Type problem;
-	MatrixXd matrix;
-	MatrixXd matrix2;
-	double x_step, y_step;
-	int x_grid, y_grid;
+	double residual; //невязка
+	double precision_cur; //текущая точность
+	int iterations_cur; //текущее количество итераций
+	Dirichlet_Problem_Non_Standard problem; //задача (область, лапласиан, граничные условия)
+	MatrixXd matrix; //матрица для численного решения
+	MatrixXd matrix2; //матрица для точного решения
+	double x_step, y_step; //шаги по X и Y
+	int x_grid, y_grid; //количество отезков по X и Y
+	
+	//конструкторы
 	Dirichlet_Problem_Solution();
 	Dirichlet_Problem_Solution(const Dirichlet_Problem_Solution&);
 	Dirichlet_Problem_Solution(int, int, Dirichlet_Problem_Square_Type);
 
-	void setPrecision(double);
-	void setIterations(int);
-	double laplacian_grid(int, int);
+	void setPrecision(double);//задать количество итераций
+	void setIterations(int); //задать количество итераций
+	double laplacian_grid(int, int); //значение лапласиана в узле
 
-	void exact_solution();
-	void initial_approximation_zero();
-	void initial_approximation_LI_x();
-	void Zeidel();
+	void exact_solution(); //точное решение
+	void initial_approximation_zero(); //нулевое начальное приближение
+	void initial_approximation_LI_x(); //начальное приближение линейной интерполяцией вдоль X 
+	void Zeidel(); //метод Зейделя
 	void SOR(double); //метод верхней реллаксации
-	void Fixed_Point_Iteration();
-	void Chebyshev_Iteration_Method(int);
+	void Fixed_Point_Iteration(); //метод простой итерации
+	void Chebyshev_Iteration_Method(int); //метод с чебышёвским набором параметров
 };
 
 template <class Dirichlet_Problem_Square_Type>

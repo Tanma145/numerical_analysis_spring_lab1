@@ -15,7 +15,7 @@ public:
 };
 
 inline double Dirichlet_Problem_Square_Main::exact(double x, double y) {
-    return -2.5; //костыль
+    return -2.5; //это, разумеется, не настоящее значение функции
 }
 
 inline double Dirichlet_Problem_Square_Main::laplacian(double x, double y){

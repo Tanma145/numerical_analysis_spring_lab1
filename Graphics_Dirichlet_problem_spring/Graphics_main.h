@@ -552,7 +552,7 @@ namespace Graph {
 			this->Controls->Add(this->textBox_max_iterations);
 			this->Controls->Add(this->textBox_precision);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"Задача Дирихле для уравнения Пуассона. Вариант 3. Основная задача.";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_numerical))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_double))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_error))->EndInit();

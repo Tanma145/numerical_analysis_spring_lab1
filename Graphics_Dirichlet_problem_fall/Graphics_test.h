@@ -546,7 +546,7 @@ namespace Graph {
 			break;
 		}
 
-		//параметр для МВР
+		//параметр метода
 		double omega = Convert::ToDouble(textBox_optimal_SOR->Text);
 		//выбор метода
 		int selectedIndex = comboBox_method->SelectedIndex;
@@ -587,7 +587,6 @@ namespace Graph {
 			dataGridView_error->Rows->Add();
 			
 			for (int j = 0; j < answer.matrix.cols(); j++) {
-				
 				dataGridView_exact->Rows[i]->Cells[j]->Value = answer.matrix2(i, j);
 				dataGridView_numerical->Rows[i]->Cells[j]->Value = answer.matrix(i, j);
 				
