@@ -524,7 +524,7 @@ namespace Graph {
 		//параметры метода
 		int n = Convert::ToInt32(textBox_x_grid->Text);
 		int m = Convert::ToInt32(textBox_y_grid->Text);
-		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Test> answer(n, m, problem);
+		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Test> answer(n - 1, m - 1, problem);
 
 		int max_iterations = Convert::ToInt32(textBox_max_iterations->Text);
 		double precision = Convert::ToDouble(textBox_precision->Text);

@@ -62,8 +62,8 @@ Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::Dirichlet_Problem_Sol
 	Dirichlet_Problem_Square_Type a(_problem);
 	problem = a;
 
-	x_grid = _x_grid - 1;
-	y_grid = _y_grid - 1;
+	x_grid = _x_grid;
+	y_grid = _y_grid;
 
 	matrix.resize(y_grid + 1, x_grid + 1);
 	matrix2.resize(y_grid + 1, x_grid + 1);

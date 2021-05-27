@@ -574,8 +574,8 @@ namespace Graph {
 		//параметры метода
 		int n = Convert::ToInt32(textBox_x_grid->Text);
 		int m = Convert::ToInt32(textBox_y_grid->Text);
-		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Main> answer(n, m, problem);
-		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Main> answer_double(2 * n, 2 * m, problem);
+		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Main> answer(n - 1, m - 1, problem);
+		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Main> answer_double(2 * (n - 1), 2 * (m - 1), problem);
 
 		int max_iterations  = Convert::ToInt32(textBox_max_iterations->Text);
 		int max_iterations2 = Convert::ToInt32(textBox_max_iterations2->Text);
@@ -644,8 +644,8 @@ namespace Graph {
 			dataGridView_double->Rows->Add();
 			dataGridView_error->Rows->Add();
 			for (int j = 0; j < answer.matrix.cols(); j++) {
-				int icor = (answer.problem.y_min + i * answer.y_step >= 0);
-				int jcor = (answer.problem.x_min + j * answer.x_step >= 0);
+				int icor = 0; // (answer.problem.y_min + i * answer.y_step >= 0);
+				int jcor = 0; // (answer.problem.x_min + j * answer.x_step >= 0);
 				dataGridView_numerical->Rows[i]->Cells[j]->Value = answer.matrix(i, j);
 				dataGridView_double->Rows[i]->Cells[j]->Value = answer_double.matrix(2 * i + icor, 2 * j + jcor);
 				double error = abs(answer_double.matrix(2 * i + icor, 2 * j + jcor) - answer.matrix(i, j));
