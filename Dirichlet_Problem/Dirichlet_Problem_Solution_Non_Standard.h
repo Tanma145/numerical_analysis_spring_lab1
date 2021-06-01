@@ -30,6 +30,7 @@ public:
 	void setPrecision(double);//задать количество итераций
 	void setIterations(int); //задать количество итераций
 	double laplacian_grid(int, int); //значение лапласиана в узле
+	double calculate_residual();
 
 	void exact_solution(); //точное решение
 	void initial_approximation(); //начальное приближение
@@ -92,6 +93,30 @@ inline double Dirichlet_Problem_Solution_Non_Standard::laplacian_grid(int i, int
 	return problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
 }
 
+inline double Dirichlet_Problem_Solution_Non_Standard::calculate_residual()
+{
+	double h2 = x_grid * x_grid / 4.0;
+	double k2 = y_grid * y_grid / 4.0;
+	double a2 = -2 * (h2 + k2);
+
+	// Ќорма нев€зки
+	double res, res_max = 0;
+	for (int i = 1; i < matrix.rows() - 1; i++)
+		for (int j = 1; j < matrix.cols() - 1; j++) {
+			if (problem.in_region(problem.x_min + i * x_step, problem.y_min + j * y_step)) {
+				double f = laplacian_grid(i, j);
+				double b = a2 * matrix(i, j);
+				double bh = h2 * (matrix(i + 1, j) + matrix(i - 1, j));
+				double bk = k2 * (matrix(i, j + 1) + matrix(i, j - 1));
+				res = abs(b + bh + bk - f);
+				if (res > res_max)
+					res_max = res;
+			}
+		}
+	residual = res_max;
+	return res_max;
+}
+
 void Dirichlet_Problem_Solution_Non_Standard::exact_solution() {
 	for (int j = 0; j <= matrix2.cols() - 1; j++)
 		for (int i = matrix2.rows() - 1; i >= 0; i--) {
@@ -100,16 +125,13 @@ void Dirichlet_Problem_Solution_Non_Standard::exact_solution() {
 }
 
 inline void Dirichlet_Problem_Solution_Non_Standard::initial_approximation() {
-
+	for (int i = 1; i < matrix.rows() - 1; i++)
+		for (int j = 1; j < matrix.cols() - 1; j++)
+			matrix(i, j) = 0;
 }
 
 inline void Dirichlet_Problem_Solution_Non_Standard::SOR(double omega) {
-	MatrixXd laplacian_grid(y_grid + 1, x_grid + 1);
 	MatrixXd solution(matrix);
-
-	for (int i = 0; i < laplacian_grid.rows(); i++)
-		for (int j = 0; j < laplacian_grid.cols(); j++)
-			laplacian_grid(i, j) = problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
 
 	int iterations = 0; // счетчик итераций 
 	double eps_max = 0; // текущее значение прироста 
@@ -148,31 +170,11 @@ inline void Dirichlet_Problem_Solution_Non_Standard::SOR(double omega) {
 	}
 	iterations_cur = iterations;
 	matrix = solution;
-
-	// Ќорма нев€зки
-	double res, res_max = 0;
-	for (int i = 1; i < matrix.rows() - 1; i++)
-		for (int j = 1; j < matrix.cols() - 1; j++) {
-			if (problem.in_region(problem.x_min + i * x_step, problem.y_min + j * y_step)) {
-				double f = laplacian_grid(i, j);
-				double b = a2 * solution(i, j);
-				double bh = h2 * (solution(i + 1, j) + solution(i - 1, j));
-				double bk = k2 * (solution(i, j + 1) + solution(i, j - 1));
-				res = abs(b + bh + bk - f);
-				if (res > res_max)
-					res_max = res;
-			}
-		}
-	residual = res_max;
 }
 
 void Dirichlet_Problem_Solution_Non_Standard::Fixed_Point_Iteration() {
-	MatrixXd laplacian_grid(y_grid + 1, x_grid + 1);
 	MatrixXd solution(matrix);
 	MatrixXd solution_prev(matrix);
-	for (int i = 0; i < laplacian_grid.rows(); i++)
-		for (int j = 0; j < laplacian_grid.cols(); j++)
-			laplacian_grid(i, j) = -problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
 
 	int iterations = 0; // счетчик итераций 
 	double eps_max = 0; // текущее значение прироста 
@@ -231,33 +233,12 @@ void Dirichlet_Problem_Solution_Non_Standard::Fixed_Point_Iteration() {
 	}
 	iterations_cur = iterations;
 	matrix = solution;
-
-	// Ќорма нев€зки
-	double res, res_max = 0;
-	for (int i = 1; i < matrix.rows() - 1; i++)
-		for (int j = 1; j < matrix.cols() - 1; j++) {
-			if (problem.in_region(problem.x_min + i * x_step, problem.y_min + j * y_step)) {
-				double f = laplacian_grid(i, j);
-				double b = a2 * solution(i, j);
-				double bh = h2 * (solution(i + 1, j) + solution(i - 1, j));
-				double bk = k2 * (solution(i, j + 1) + solution(i, j - 1));
-				res = abs(b + bh + bk - f);
-				if (res > res_max)
-					res_max = res;
-			}
-		}
-	residual = res_max;
 }
 
 void Dirichlet_Problem_Solution_Non_Standard::Chebyshev_Iteration_Method(int k) {
-	MatrixXd laplacian_grid(y_grid + 1, x_grid + 1);
 	MatrixXd solution(matrix);
 	MatrixXd solution_prev(matrix);
 	MatrixXd k_solution;
-
-	for (int i = 0; i < laplacian_grid.rows(); i++)
-		for (int j = 0; j < laplacian_grid.cols(); j++)
-			laplacian_grid(i, j) = problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
 
 	k_solution = solution;
 	int iterations = 0; // счетчик итераций 
@@ -336,21 +317,5 @@ void Dirichlet_Problem_Solution_Non_Standard::Chebyshev_Iteration_Method(int k) 
 	//std::cout << matrix2 << std::endl << std::endl;
 	iterations_cur = iterations;
 	matrix = k_solution;
-
-	// Ќорма нев€зки
-	double res, res_max = 0;
-	for (int i = 1; i < matrix.rows() - 1; i++)
-		for (int j = 1; j < matrix.cols() - 1; j++) {
-			if (problem.in_region(problem.x_min + i * x_step, problem.y_min + j * y_step)) {
-				double f = laplacian_grid(i, j);
-				double b = a2 * solution(i, j);
-				double bh = h2 * (solution(i + 1, j) + solution(i - 1, j));
-				double bk = k2 * (solution(i, j + 1) + solution(i, j - 1));
-				res = abs(b + bh + bk - f);
-				if (res > res_max)
-					res_max = res;
-			}
-		}
-	residual = res_max;
 }
 

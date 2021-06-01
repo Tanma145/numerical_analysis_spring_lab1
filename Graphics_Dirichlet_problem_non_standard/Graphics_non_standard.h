@@ -79,6 +79,8 @@ namespace Graph {
 	private: System::Windows::Forms::TextBox^ textBox_max_point;
 	private: System::Windows::Forms::Label^ label13;
 	private: System::Windows::Forms::TextBox^ textBox_residual;
+	private: System::Windows::Forms::Label^ label15;
+	private: System::Windows::Forms::TextBox^ textBox_residual0;
 
 
 
@@ -129,6 +131,8 @@ namespace Graph {
 			this->textBox_max_point = (gcnew System::Windows::Forms::TextBox());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->textBox_residual = (gcnew System::Windows::Forms::TextBox());
+			this->label15 = (gcnew System::Windows::Forms::Label());
+			this->textBox_residual0 = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_exact))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_numerical))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_error))->BeginInit();
@@ -277,7 +281,7 @@ namespace Graph {
 			// 
 			// textBox_precision_cur
 			// 
-			this->textBox_precision_cur->Location = System::Drawing::Point(212, 343);
+			this->textBox_precision_cur->Location = System::Drawing::Point(212, 317);
 			this->textBox_precision_cur->Name = L"textBox_precision_cur";
 			this->textBox_precision_cur->ReadOnly = true;
 			this->textBox_precision_cur->Size = System::Drawing::Size(125, 20);
@@ -285,7 +289,7 @@ namespace Graph {
 			// 
 			// textBox_iterations_cur
 			// 
-			this->textBox_iterations_cur->Location = System::Drawing::Point(212, 375);
+			this->textBox_iterations_cur->Location = System::Drawing::Point(212, 349);
 			this->textBox_iterations_cur->Name = L"textBox_iterations_cur";
 			this->textBox_iterations_cur->ReadOnly = true;
 			this->textBox_iterations_cur->Size = System::Drawing::Size(125, 20);
@@ -294,7 +298,7 @@ namespace Graph {
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(12, 346);
+			this->label8->Location = System::Drawing::Point(12, 320);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(120, 13);
 			this->label8->TabIndex = 17;
@@ -303,7 +307,7 @@ namespace Graph {
 			// label9
 			// 
 			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(12, 375);
+			this->label9->Location = System::Drawing::Point(12, 349);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(133, 26);
 			this->label9->TabIndex = 18;
@@ -312,7 +316,7 @@ namespace Graph {
 			// label10
 			// 
 			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(12, 415);
+			this->label10->Location = System::Drawing::Point(12, 389);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(146, 26);
 			this->label10->TabIndex = 20;
@@ -320,7 +324,7 @@ namespace Graph {
 			// 
 			// textBox_error_max
 			// 
-			this->textBox_error_max->Location = System::Drawing::Point(212, 415);
+			this->textBox_error_max->Location = System::Drawing::Point(212, 389);
 			this->textBox_error_max->Name = L"textBox_error_max";
 			this->textBox_error_max->ReadOnly = true;
 			this->textBox_error_max->Size = System::Drawing::Size(125, 20);
@@ -380,7 +384,7 @@ namespace Graph {
 			// label14
 			// 
 			this->label14->AutoSize = true;
-			this->label14->Location = System::Drawing::Point(219, 437);
+			this->label14->Location = System::Drawing::Point(219, 411);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(103, 13);
 			this->label14->TabIndex = 34;
@@ -388,7 +392,7 @@ namespace Graph {
 			// 
 			// textBox_max_point
 			// 
-			this->textBox_max_point->Location = System::Drawing::Point(212, 453);
+			this->textBox_max_point->Location = System::Drawing::Point(212, 427);
 			this->textBox_max_point->Name = L"textBox_max_point";
 			this->textBox_max_point->ReadOnly = true;
 			this->textBox_max_point->Size = System::Drawing::Size(125, 20);
@@ -411,11 +415,30 @@ namespace Graph {
 			this->textBox_residual->Size = System::Drawing::Size(125, 20);
 			this->textBox_residual->TabIndex = 31;
 			// 
+			// label15
+			// 
+			this->label15->AutoSize = true;
+			this->label15->Location = System::Drawing::Point(12, 462);
+			this->label15->Name = L"label15";
+			this->label15->Size = System::Drawing::Size(142, 13);
+			this->label15->TabIndex = 36;
+			this->label15->Text = L"Норма начальной невязки";
+			// 
+			// textBox_residual0
+			// 
+			this->textBox_residual0->Location = System::Drawing::Point(212, 459);
+			this->textBox_residual0->Name = L"textBox_residual0";
+			this->textBox_residual0->ReadOnly = true;
+			this->textBox_residual0->Size = System::Drawing::Size(125, 20);
+			this->textBox_residual0->TabIndex = 35;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1904, 525);
+			this->ClientSize = System::Drawing::Size(1904, 565);
+			this->Controls->Add(this->label15);
+			this->Controls->Add(this->textBox_residual0);
 			this->Controls->Add(this->label14);
 			this->Controls->Add(this->textBox_max_point);
 			this->Controls->Add(this->label13);
@@ -475,6 +498,8 @@ namespace Graph {
 		double precision = Convert::ToDouble(textBox_precision->Text);
 		answer.setIterations(max_iterations);
 		answer.setPrecision(precision);
+		//answer.initial_approximation();
+		textBox_residual0->Text = Convert::ToString(answer.calculate_residual());
 		//answer.exact_solution();
 
 		//параметр метода
@@ -528,7 +553,7 @@ namespace Graph {
 		// Вывод статистики метода
 		textBox_precision_cur->Text = Convert::ToString(answer.precision_cur);
 		textBox_iterations_cur->Text = Convert::ToString(answer.iterations_cur);
-		textBox_residual->Text = Convert::ToString(answer.residual);
+		textBox_residual->Text = Convert::ToString(answer.calculate_residual());
 		textBox_error_max->Text = Convert::ToString(error_max);
 		x_of_max = round((x_of_max) * 1e6) / 1e6;
 		y_of_max = round((y_of_max) * 1e6) / 1e6;

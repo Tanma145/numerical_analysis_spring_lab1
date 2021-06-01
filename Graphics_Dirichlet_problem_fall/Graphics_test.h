@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <ctime>
 #include "../Dirichlet_Problem/Dirichlet_Problem_Solution.h"
 #define PI 3.141592653589793
 
@@ -80,6 +81,11 @@ namespace Graph {
 	private: System::Windows::Forms::Label^ label13;
 	private: System::Windows::Forms::TextBox^ textBox_max_point;
 	private: System::Windows::Forms::Label^ label14;
+	private: System::Windows::Forms::Label^ label15;
+	private: System::Windows::Forms::TextBox^ textBox_residual0;
+	private: System::Windows::Forms::Label^ label16;
+	private: System::Windows::Forms::TextBox^ textBox_time;
+
 
 
 
@@ -134,6 +140,10 @@ namespace Graph {
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->textBox_max_point = (gcnew System::Windows::Forms::TextBox());
 			this->label14 = (gcnew System::Windows::Forms::Label());
+			this->label15 = (gcnew System::Windows::Forms::Label());
+			this->textBox_residual0 = (gcnew System::Windows::Forms::TextBox());
+			this->label16 = (gcnew System::Windows::Forms::Label());
+			this->textBox_time = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_exact))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_numerical))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_error))->BeginInit();
@@ -145,7 +155,7 @@ namespace Graph {
 			this->textBox_precision->Name = L"textBox_precision";
 			this->textBox_precision->Size = System::Drawing::Size(125, 20);
 			this->textBox_precision->TabIndex = 0;
-			this->textBox_precision->Text = L"0,5e-6";
+			this->textBox_precision->Text = L"0,5e-8";
 			// 
 			// textBox_max_iterations
 			// 
@@ -224,9 +234,9 @@ namespace Graph {
 			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView_exact->DefaultCellStyle = dataGridViewCellStyle1;
-			this->dataGridView_exact->Location = System::Drawing::Point(523, 32);
+			this->dataGridView_exact->Location = System::Drawing::Point(401, 32);
 			this->dataGridView_exact->Name = L"dataGridView_exact";
-			this->dataGridView_exact->Size = System::Drawing::Size(452, 473);
+			this->dataGridView_exact->Size = System::Drawing::Size(493, 493);
 			this->dataGridView_exact->TabIndex = 8;
 			// 
 			// dataGridView_numerical
@@ -246,9 +256,9 @@ namespace Graph {
 			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView_numerical->DefaultCellStyle = dataGridViewCellStyle2;
-			this->dataGridView_numerical->Location = System::Drawing::Point(982, 32);
+			this->dataGridView_numerical->Location = System::Drawing::Point(900, 32);
 			this->dataGridView_numerical->Name = L"dataGridView_numerical";
-			this->dataGridView_numerical->Size = System::Drawing::Size(452, 473);
+			this->dataGridView_numerical->Size = System::Drawing::Size(493, 493);
 			this->dataGridView_numerical->TabIndex = 9;
 			// 
 			// dataGridView_error
@@ -268,9 +278,9 @@ namespace Graph {
 			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView_error->DefaultCellStyle = dataGridViewCellStyle3;
-			this->dataGridView_error->Location = System::Drawing::Point(1440, 32);
+			this->dataGridView_error->Location = System::Drawing::Point(1399, 32);
 			this->dataGridView_error->Name = L"dataGridView_error";
-			this->dataGridView_error->Size = System::Drawing::Size(452, 473);
+			this->dataGridView_error->Size = System::Drawing::Size(493, 493);
 			this->dataGridView_error->TabIndex = 10;
 			// 
 			// button_solve
@@ -289,7 +299,7 @@ namespace Graph {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label5->Location = System::Drawing::Point(520, 9);
+			this->label5->Location = System::Drawing::Point(397, 9);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(153, 20);
 			this->label5->TabIndex = 12;
@@ -301,7 +311,7 @@ namespace Graph {
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label6->Location = System::Drawing::Point(978, 9);
+			this->label6->Location = System::Drawing::Point(896, 9);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(164, 20);
 			this->label6->TabIndex = 13;
@@ -313,7 +323,7 @@ namespace Graph {
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label7->Location = System::Drawing::Point(1436, 9);
+			this->label7->Location = System::Drawing::Point(1395, 9);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(338, 20);
 			this->label7->TabIndex = 14;
@@ -356,11 +366,11 @@ namespace Graph {
 			// label10
 			// 
 			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(12, 411);
+			this->label10->Location = System::Drawing::Point(12, 417);
 			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(146, 26);
+			this->label10->Size = System::Drawing::Size(153, 13);
 			this->label10->TabIndex = 20;
-			this->label10->Text = L"Максимальная глобальная\r\nпогрешность";
+			this->label10->Text = L"Максимальная погрешность";
 			// 
 			// textBox_error_max
 			// 
@@ -433,7 +443,7 @@ namespace Graph {
 			// 
 			// textBox_residual
 			// 
-			this->textBox_residual->Location = System::Drawing::Point(212, 485);
+			this->textBox_residual->Location = System::Drawing::Point(212, 505);
 			this->textBox_residual->Name = L"textBox_residual";
 			this->textBox_residual->ReadOnly = true;
 			this->textBox_residual->Size = System::Drawing::Size(125, 20);
@@ -442,7 +452,7 @@ namespace Graph {
 			// label13
 			// 
 			this->label13->AutoSize = true;
-			this->label13->Location = System::Drawing::Point(12, 488);
+			this->label13->Location = System::Drawing::Point(12, 508);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(86, 13);
 			this->label13->TabIndex = 28;
@@ -465,11 +475,49 @@ namespace Graph {
 			this->label14->TabIndex = 30;
 			this->label14->Text = L"достигнута в точке";
 			// 
+			// label15
+			// 
+			this->label15->AutoSize = true;
+			this->label15->Location = System::Drawing::Point(12, 482);
+			this->label15->Name = L"label15";
+			this->label15->Size = System::Drawing::Size(142, 13);
+			this->label15->TabIndex = 32;
+			this->label15->Text = L"Норма начальной невязки";
+			// 
+			// textBox_residual0
+			// 
+			this->textBox_residual0->Location = System::Drawing::Point(212, 479);
+			this->textBox_residual0->Name = L"textBox_residual0";
+			this->textBox_residual0->ReadOnly = true;
+			this->textBox_residual0->Size = System::Drawing::Size(125, 20);
+			this->textBox_residual0->TabIndex = 31;
+			// 
+			// label16
+			// 
+			this->label16->AutoSize = true;
+			this->label16->Location = System::Drawing::Point(12, 586);
+			this->label16->Name = L"label16";
+			this->label16->Size = System::Drawing::Size(142, 13);
+			this->label16->TabIndex = 34;
+			this->label16->Text = L"Время работы программы";
+			// 
+			// textBox_time
+			// 
+			this->textBox_time->Location = System::Drawing::Point(212, 583);
+			this->textBox_time->Name = L"textBox_time";
+			this->textBox_time->ReadOnly = true;
+			this->textBox_time->Size = System::Drawing::Size(125, 20);
+			this->textBox_time->TabIndex = 33;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1904, 683);
+			this->Controls->Add(this->label16);
+			this->Controls->Add(this->textBox_time);
+			this->Controls->Add(this->label15);
+			this->Controls->Add(this->textBox_residual0);
 			this->Controls->Add(this->label14);
 			this->Controls->Add(this->textBox_max_point);
 			this->Controls->Add(this->label13);
@@ -545,6 +593,11 @@ namespace Graph {
 			answer.initial_approximation_zero();
 			break;
 		}
+		textBox_residual0->Text = Convert::ToString(answer.calculate_residual());
+
+		unsigned int start_time;
+		unsigned int end_time;
+		unsigned int work_time;
 
 		//параметр метода
 		double omega = Convert::ToDouble(textBox_optimal_SOR->Text);
@@ -552,24 +605,42 @@ namespace Graph {
 		int selectedIndex = comboBox_method->SelectedIndex;
 		switch (selectedIndex) {
 		case 0:
+			start_time = clock();
 			answer.Zeidel();
+			end_time = clock();
 			break;
 		case 1:
+			start_time = clock();
 			answer.SOR(omega);
+			end_time = clock();
 			break;
 		case 2:
+			start_time = clock();
 			answer.Fixed_Point_Iteration();
+			end_time = clock();
 			break;
 		case 3:
+			start_time = clock();
 			answer.Chebyshev_Iteration_Method((int)omega);
+			end_time = clock();
 			break;
 		default:
+			start_time = clock();
 			answer.Zeidel();
+			end_time = clock();
 			break;
 		}
+		work_time = end_time - start_time;
+		textBox_time->Text = Convert::ToString(work_time / 1000.0);
 		
 		// Подготовка таблиц
-		for (int i = 0; i < answer.matrix.cols(); i++) {
+		/*
+		int a = 1;
+		if (n > 600 || m > 600)
+			a = 2;
+		*/
+		/*
+		for (int i = 0; i < answer.matrix.cols(); i ++) {
 			char* col_name = "Column";
 			col_name += i;
 			double xx = round((i * answer.x_step + answer.problem.x_min) * 1e6) / 1e6;
@@ -577,18 +648,19 @@ namespace Graph {
 			dataGridView_numerical->Columns->Add(Convert::ToString(col_name), Convert::ToString(xx));
 			dataGridView_error->Columns->Add(    Convert::ToString(col_name), Convert::ToString(xx));
 		}
+		*/
 		
 		// Заполнение таблиц
 		double x_of_max, y_of_max;
 		for (int i = 0; i < answer.matrix.rows(); i++) {
-			
+			/*
 			dataGridView_exact->Rows->Add();
 			dataGridView_numerical->Rows->Add();
 			dataGridView_error->Rows->Add();
-			
+			*/
 			for (int j = 0; j < answer.matrix.cols(); j++) {
-				dataGridView_exact->Rows[i]->Cells[j]->Value = answer.matrix2(i, j);
-				dataGridView_numerical->Rows[i]->Cells[j]->Value = answer.matrix(i, j);
+				//dataGridView_exact->Rows[i]->Cells[j]->Value = answer.matrix2(i, j);
+				//dataGridView_numerical->Rows[i]->Cells[j]->Value = answer.matrix(i, j);
 				
 				double error = abs(answer.matrix2(i, j) - answer.matrix(i, j));
 				if (error > error_max) {
@@ -596,7 +668,7 @@ namespace Graph {
 					x_of_max = answer.problem.x_min + answer.x_step * j;
 					y_of_max = answer.problem.y_min + answer.y_step * i;
 				}
-				dataGridView_error->Rows[i]->Cells[j]->Value = error;
+				//dataGridView_error->Rows[i]->Cells[j]->Value = error;
 			}
 		}
 

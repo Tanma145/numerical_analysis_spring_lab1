@@ -18,7 +18,7 @@ public:
 	double residual; //невязка
 	double precision_cur; //текущая точность
 	int iterations_cur; //текущее количество итераций
-	Dirichlet_Problem_Non_Standard problem; //задача (область, лапласиан, граничные условия)
+	Dirichlet_Problem_Square_Type problem; //задача (область, лапласиан, граничные условия)
 	MatrixXd matrix; //матрица для численного решения
 	MatrixXd matrix2; //матрица для точного решения
 	double x_step, y_step; //шаги по X и Y
@@ -32,6 +32,7 @@ public:
 	void setPrecision(double);//задать количество итераций
 	void setIterations(int); //задать количество итераций
 	double laplacian_grid(int, int); //значение лапласиана в узле
+	double calculate_residual();
 
 	void exact_solution(); //точное решение
 	void initial_approximation_zero(); //нулевое начальное приближение
@@ -98,6 +99,29 @@ inline double Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::laplaci
 	return problem.laplacian(problem.x_min + i * x_step, problem.y_min + j * y_step);
 }
 
+template<class Dirichlet_Problem_Square_Type>
+inline double Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::calculate_residual()
+{
+	double h2 = x_grid * x_grid / 4.0;
+	double k2 = y_grid * y_grid / 4.0;
+	double a2 = -2 * (h2 + k2);
+
+	// Норма невязки
+	double res, res_max = 0;
+	for (int i = 1; i < matrix.rows() - 1; i++)
+		for (int j = 1; j < matrix.cols() - 1; j++) {
+			double f = laplacian_grid(i, j);
+			double b = a2 * matrix(i, j);
+			double bh = h2 * (matrix(i + 1, j) + matrix(i - 1, j));
+			double bk = k2 * (matrix(i, j + 1) + matrix(i, j - 1));
+			res = abs(b + bh + bk - f);
+			if (res > res_max)
+				res_max = res;
+		}
+	residual = res_max;
+	return res_max;
+}
+
 template <class Dirichlet_Problem_Square_Type>
 void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::exact_solution() {
 	for (int j = 0; j <= matrix2.cols() - 1; j++)
@@ -112,7 +136,6 @@ inline void Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Type>::initial_a
 	for (int i = 1; i < matrix.rows() - 1; i++)
 		for (int j = 1; j < matrix.cols() - 1; j++)
 			matrix(i, j) = 0;
-
 }
 
 template<class Dirichlet_Problem_Square_Type>
