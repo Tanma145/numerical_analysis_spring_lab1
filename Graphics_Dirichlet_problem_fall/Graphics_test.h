@@ -52,9 +52,7 @@ namespace Graph {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::TextBox^ textBox_y_grid;
-
 	private: System::Windows::Forms::TextBox^ textBox_x_grid;
-
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::DataGridView^ dataGridView_exact;
 	private: System::Windows::Forms::DataGridView^ dataGridView_numerical;
@@ -72,8 +70,6 @@ namespace Graph {
 	private: System::Windows::Forms::Label^ label11;
 	private: System::Windows::Forms::ComboBox^ comboBox_method;
 	private: System::Windows::Forms::TextBox^ textBox_optimal_SOR;
-
-
 	private: System::Windows::Forms::Label^ label12;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::ComboBox^ comboBox_initial_approximation;
@@ -85,14 +81,6 @@ namespace Graph {
 	private: System::Windows::Forms::TextBox^ textBox_residual0;
 	private: System::Windows::Forms::Label^ label16;
 	private: System::Windows::Forms::TextBox^ textBox_time;
-
-
-
-
-
-
-
-
 	private: System::ComponentModel::IContainer^  components;
 	private:
 		/// <summary>
@@ -572,7 +560,7 @@ namespace Graph {
 		//параметры метода
 		int n = Convert::ToInt32(textBox_x_grid->Text);
 		int m = Convert::ToInt32(textBox_y_grid->Text);
-		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Test> answer(n - 1, m - 1, problem);
+		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Test> answer(n, m, problem);
 
 		int max_iterations = Convert::ToInt32(textBox_max_iterations->Text);
 		double precision = Convert::ToDouble(textBox_precision->Text);
@@ -634,12 +622,13 @@ namespace Graph {
 		textBox_time->Text = Convert::ToString(work_time / 1000.0);
 		
 		// Подготовка таблиц
-		/*
+		 /*
 		int a = 1;
 		if (n > 600 || m > 600)
 			a = 2;
-		*/
-		/*
+		 */
+
+		 /*
 		for (int i = 0; i < answer.matrix.cols(); i ++) {
 			char* col_name = "Column";
 			col_name += i;
@@ -648,16 +637,16 @@ namespace Graph {
 			dataGridView_numerical->Columns->Add(Convert::ToString(col_name), Convert::ToString(xx));
 			dataGridView_error->Columns->Add(    Convert::ToString(col_name), Convert::ToString(xx));
 		}
-		*/
+		 */
 		
 		// Заполнение таблиц
 		double x_of_max, y_of_max;
 		for (int i = 0; i < answer.matrix.rows(); i++) {
-			/*
+			 /*
 			dataGridView_exact->Rows->Add();
 			dataGridView_numerical->Rows->Add();
 			dataGridView_error->Rows->Add();
-			*/
+			 */
 			for (int j = 0; j < answer.matrix.cols(); j++) {
 				//dataGridView_exact->Rows[i]->Cells[j]->Value = answer.matrix2(i, j);
 				//dataGridView_numerical->Rows[i]->Cells[j]->Value = answer.matrix(i, j);

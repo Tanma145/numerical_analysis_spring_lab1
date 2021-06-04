@@ -99,7 +99,6 @@ inline double Dirichlet_Problem_Solution_Non_Standard::calculate_residual()
 	double k2 = y_grid * y_grid / 4.0;
 	double a2 = -2 * (h2 + k2);
 
-	// Норма невязки
 	double res, res_max = 0;
 	for (int i = 1; i < matrix.rows() - 1; i++)
 		for (int j = 1; j < matrix.cols() - 1; j++) {

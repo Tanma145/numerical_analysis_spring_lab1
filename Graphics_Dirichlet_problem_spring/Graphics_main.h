@@ -93,6 +93,11 @@ namespace Graph {
 	private: System::Windows::Forms::TextBox^ textBox_precision2;
 	private: System::Windows::Forms::Label^ label16;
 	private: System::Windows::Forms::TextBox^ textBox_max_point;
+	private: System::Windows::Forms::TextBox^ textBox_residual02;
+
+	private: System::Windows::Forms::Label^ label17;
+	private: System::Windows::Forms::TextBox^ textBox_residual0;
+
 
 
 
@@ -148,6 +153,9 @@ namespace Graph {
 			this->textBox_precision2 = (gcnew System::Windows::Forms::TextBox());
 			this->label16 = (gcnew System::Windows::Forms::Label());
 			this->textBox_max_point = (gcnew System::Windows::Forms::TextBox());
+			this->textBox_residual02 = (gcnew System::Windows::Forms::TextBox());
+			this->label17 = (gcnew System::Windows::Forms::Label());
+			this->textBox_residual0 = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_numerical))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_double))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_error))->BeginInit();
@@ -383,7 +391,7 @@ namespace Graph {
 			// label10
 			// 
 			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(12, 507);
+			this->label10->Location = System::Drawing::Point(12, 514);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(129, 26);
 			this->label10->TabIndex = 31;
@@ -391,7 +399,7 @@ namespace Graph {
 			// 
 			// textBox_error_max
 			// 
-			this->textBox_error_max->Location = System::Drawing::Point(212, 507);
+			this->textBox_error_max->Location = System::Drawing::Point(212, 514);
 			this->textBox_error_max->Name = L"textBox_error_max";
 			this->textBox_error_max->ReadOnly = true;
 			this->textBox_error_max->Size = System::Drawing::Size(256, 20);
@@ -410,7 +418,7 @@ namespace Graph {
 			// label13
 			// 
 			this->label13->AutoSize = true;
-			this->label13->Location = System::Drawing::Point(12, 475);
+			this->label13->Location = System::Drawing::Point(12, 491);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(86, 13);
 			this->label13->TabIndex = 34;
@@ -418,7 +426,7 @@ namespace Graph {
 			// 
 			// textBox_residual
 			// 
-			this->textBox_residual->Location = System::Drawing::Point(212, 472);
+			this->textBox_residual->Location = System::Drawing::Point(212, 488);
 			this->textBox_residual->Name = L"textBox_residual";
 			this->textBox_residual->ReadOnly = true;
 			this->textBox_residual->Size = System::Drawing::Size(125, 20);
@@ -452,7 +460,7 @@ namespace Graph {
 			// 
 			// textBox_residual2
 			// 
-			this->textBox_residual2->Location = System::Drawing::Point(343, 472);
+			this->textBox_residual2->Location = System::Drawing::Point(343, 488);
 			this->textBox_residual2->Name = L"textBox_residual2";
 			this->textBox_residual2->ReadOnly = true;
 			this->textBox_residual2->Size = System::Drawing::Size(125, 20);
@@ -493,7 +501,7 @@ namespace Graph {
 			// label16
 			// 
 			this->label16->AutoSize = true;
-			this->label16->Location = System::Drawing::Point(218, 536);
+			this->label16->Location = System::Drawing::Point(218, 543);
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(103, 13);
 			this->label16->TabIndex = 44;
@@ -501,17 +509,45 @@ namespace Graph {
 			// 
 			// textBox_max_point
 			// 
-			this->textBox_max_point->Location = System::Drawing::Point(343, 533);
+			this->textBox_max_point->Location = System::Drawing::Point(343, 540);
 			this->textBox_max_point->Name = L"textBox_max_point";
 			this->textBox_max_point->ReadOnly = true;
 			this->textBox_max_point->Size = System::Drawing::Size(125, 20);
 			this->textBox_max_point->TabIndex = 43;
+			// 
+			// textBox_residual02
+			// 
+			this->textBox_residual02->Location = System::Drawing::Point(343, 462);
+			this->textBox_residual02->Name = L"textBox_residual02";
+			this->textBox_residual02->ReadOnly = true;
+			this->textBox_residual02->Size = System::Drawing::Size(125, 20);
+			this->textBox_residual02->TabIndex = 47;
+			// 
+			// label17
+			// 
+			this->label17->AutoSize = true;
+			this->label17->Location = System::Drawing::Point(12, 465);
+			this->label17->Name = L"label17";
+			this->label17->Size = System::Drawing::Size(142, 13);
+			this->label17->TabIndex = 46;
+			this->label17->Text = L"Норма начальной невязки";
+			// 
+			// textBox_residual0
+			// 
+			this->textBox_residual0->Location = System::Drawing::Point(212, 462);
+			this->textBox_residual0->Name = L"textBox_residual0";
+			this->textBox_residual0->ReadOnly = true;
+			this->textBox_residual0->Size = System::Drawing::Size(125, 20);
+			this->textBox_residual0->TabIndex = 45;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1904, 649);
+			this->Controls->Add(this->textBox_residual02);
+			this->Controls->Add(this->label17);
+			this->Controls->Add(this->textBox_residual0);
 			this->Controls->Add(this->label16);
 			this->Controls->Add(this->textBox_max_point);
 			this->Controls->Add(this->textBox_max_iterations2);
@@ -574,8 +610,8 @@ namespace Graph {
 		//параметры метода
 		int n = Convert::ToInt32(textBox_x_grid->Text);
 		int m = Convert::ToInt32(textBox_y_grid->Text);
-		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Main> answer(n - 1, m - 1, problem);
-		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Main> answer_double(2 * (n - 1), 2 * (m - 1), problem);
+		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Main> answer(n, m, problem);
+		Dirichlet_Problem_Solution<Dirichlet_Problem_Square_Main> answer_double(2 * n, 2 * m, problem);
 
 		int max_iterations  = Convert::ToInt32(textBox_max_iterations->Text);
 		int max_iterations2 = Convert::ToInt32(textBox_max_iterations2->Text);
@@ -602,6 +638,9 @@ namespace Graph {
 			answer_double.initial_approximation_zero();
 			break;
 		}
+		textBox_residual0->Text = Convert::ToString(answer.calculate_residual());
+		textBox_residual02->Text = Convert::ToString(answer_double.calculate_residual());
+		
 
 		//параметр метода
 		double omega = Convert::ToDouble(textBox_optimal_SOR->Text);
@@ -644,11 +683,9 @@ namespace Graph {
 			dataGridView_double->Rows->Add();
 			dataGridView_error->Rows->Add();
 			for (int j = 0; j < answer.matrix.cols(); j++) {
-				int icor = 0; // (answer.problem.y_min + i * answer.y_step >= 0);
-				int jcor = 0; // (answer.problem.x_min + j * answer.x_step >= 0);
 				dataGridView_numerical->Rows[i]->Cells[j]->Value = answer.matrix(i, j);
-				dataGridView_double->Rows[i]->Cells[j]->Value = answer_double.matrix(2 * i + icor, 2 * j + jcor);
-				double error = abs(answer_double.matrix(2 * i + icor, 2 * j + jcor) - answer.matrix(i, j));
+				dataGridView_double->Rows[i]->Cells[j]->Value = answer_double.matrix(2 * i, 2 * j);
+				double error = abs(answer_double.matrix(2 * i, 2 * j ) - answer.matrix(i, j));
 				if (error > error_max) {
 					error_max = error;
 					x_of_max = answer.problem.x_min + answer.x_step * j;
